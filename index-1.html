@@ -1,0 +1,74 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Unknown </title></head><body>
+<h1 id="udagram-image-filtering-application">Udagram Image Filtering Application</h1>
+<p>Udagram is a simple cloud application developed alongside the Udacity Cloud Engineering Nanodegree. It allows users to register and log into a web client, post photos to the feed, and process photos using an image filtering microservice.</p>
+<p>The project is split into two parts:
+1. Frontend - Angular web application built with Ionic Framework
+2. Backend RESTful API - Node-Express application</p>
+<h2 id="getting-started">Getting Started</h2>
+<blockquote>
+<p><em>tip</em>: it's recommended that you start with getting the backend API running since the frontend web application depends on the API.</p>
+</blockquote>
+<h3 id="prerequisite">Prerequisite</h3>
+<ol>
+<li>The depends on the Node Package Manager (NPM). You will need to download and install Node from <a href="https://nodejs.org/en/download/">https://nodejs.com/en/download</a>. This will allow you to be able to run <code>npm</code> commands.</li>
+<li>Environment variables will need to be set. These environment variables include database connection details that should not be hard-coded into the application code.</li>
+</ol>
+<h4 id="environment-script">Environment Script</h4>
+<p>A file named <code>set_env.sh</code> has been prepared as an optional tool to help you configure these variables on your local development environment.</p>
+<p>We do <em>not</em> want your credentials to be stored in git. After pulling this <code>starter</code> project, run the following command to tell git to stop tracking the script in git but keep it stored locally. This way, you can use the script for your convenience and reduce risk of exposing your credentials.
+<code>git rm --cached set_env.sh</code></p>
+<p>Afterwards, we can prevent the file from being included in your solution by adding the file to our <code>.gitignore</code> file.</p>
+<h3 id="1-database">1. Database</h3>
+<p>Create a PostgreSQL database either locally or on AWS RDS. The database is used to store the application's metadata.</p>
+<ul>
+<li>We will need to use password authentication for this project. This means that a username and password is needed to authenticate and access the database.</li>
+<li>The port number will need to be set as <code>5432</code>. This is the typical port that is used by PostgreSQL so it is usually set to this port by default.</li>
+</ul>
+<p>Once your database is set up, set the config values for environment variables prefixed with <code>POSTGRES_</code> in <code>set_env.sh</code>.
+<em> If you set up a local database, your <code>POSTGRES_HOST</code> is most likely <code>localhost</code>
+</em> If you set up an RDS database, your <code>POSTGRES_HOST</code> is most likely in the following format: <code>***.****.us-west-1.rds.amazonaws.com</code>. You can find this value in the AWS console's RDS dashboard.</p>
+<h3 id="2-s3">2. S3</h3>
+<p>Create an AWS S3 bucket. The S3 bucket is used to store images that are displayed in Udagram.</p>
+<p>Set the config values for environment variables prefixed with <code>AWS_</code> in <code>set_env.sh</code>.</p>
+<h3 id="3-backend-api">3. Backend API</h3>
+<p>Launch the backend API locally. The API is the application's interface to S3 and the database.</p>
+<ul>
+<li>To download all the package dependencies, run the command from the directory <code>udagram-api/</code>:
+    <code>bash
+    npm install .</code></li>
+<li>To run the application locally, run:
+    <code>bash
+    npm run dev</code></li>
+<li>You can visit <code>http://localhost:8080/api/v0/feed</code> in your web browser to verify that the application is running. You should see a JSON payload. Feel free to play around with Postman to test the API's.</li>
+</ul>
+<h3 id="4-frontend-app">4. Frontend App</h3>
+<p>Launch the frontend app locally.</p>
+<ul>
+<li>To download all the package dependencies, run the command from the directory <code>udagram-frontend/</code>:
+    <code>bash
+    npm install .</code></li>
+<li>Install Ionic Framework's Command Line tools for us to build and run the application:
+    <code>bash
+    npm install -g ionic</code></li>
+<li>Prepare your application by compiling them into static files.
+    <code>bash
+    ionic build</code></li>
+<li>Run the application locally using files created from the <code>ionic build</code> command.
+    <code>bash
+    ionic serve</code></li>
+<li>You can visit <code>http://localhost:8100</code> in your web browser to verify that the application is running. You should see a web interface.</li>
+</ul>
+<h2 id="tips">Tips</h2>
+<ol>
+<li>Take a look at <code>udagram-api</code> -- does it look like we can divide it into two modules to be deployed as separate microservices?</li>
+<li>The <code>.dockerignore</code> file is included for your convenience to not copy <code>node_modules</code>. Copying this over into a Docker container might cause issues if your local environment is a different operating system than the Docker image (ex. Windows or MacOS vs. Linux).</li>
+<li>It's useful to "lint" your code so that changes in the codebase adhere to a coding standard. This helps alleviate issues when developers use different styles of coding. <code>eslint</code> has been set up for TypeScript in the codebase for you. To lint your code, run the following:
+    <code>bash
+    npx eslint --ext .js,.ts src/</code>
+    To have your code fixed automatically, run
+    <code>bash
+    npx eslint --ext .js,.ts src/ --fix</code></li>
+<li><code>set_env.sh</code> is really for your backend application. Frontend applications have a different notion of how to store configurations. Configurations for the application endpoints can be configured inside of the <code>environments/environment.*ts</code> files.</li>
+<li>In <code>set_env.sh</code>, environment variables are set with <code>export $VAR=value</code>. Setting it this way is not permanent; every time you open a new terminal, you will have to run <code>set_env.sh</code> to reconfigure your environment variables. To verify if your environment variable is set, you can check the variable with a command like <code>echo $POSTGRES_USERNAME</code>.</li>
+</ol>
+</body></html>
